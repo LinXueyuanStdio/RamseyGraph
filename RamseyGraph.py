@@ -146,23 +146,24 @@ class RamseyGraph(datasets.GeneratorBasedBuilder):
         # Download and extract dataset
         name = self.config.name
         url = _URLS[name]
-        filename = url.split("/")[-1]
-        data_dir = dl_manager.download_and_extract(url)
+        filepath = dl_manager.download_and_extract(url)
         return [
             datasets.SplitGenerator(
                 name=datasets.Split.TRAIN,
                 gen_kwargs={
-                    "filepath": os.path.join(data_dir, filename),
+                    "filepath": filepath,
+                    "name": name,
+                    "url": url,
                 },
             )
         ]
 
-    def _generate_examples(self, filepath: str):
+    def _generate_examples(self, filepath: str, name: str, url: str):
         """Yields examples from the dataset."""
         if not os.path.exists(filepath):
             raise FileNotFoundError(f"Dataset file {filepath} not found.")
         # Determine if the file is gzipped or not
-        open_func = gzip.open if filepath.endswith('.gz') else open
+        open_func = gzip.open if url.endswith('.gz') else open
 
         with open_func(filepath, 'rt') as f:
             for key, line in enumerate(f):
