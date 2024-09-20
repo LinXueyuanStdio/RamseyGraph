@@ -90,6 +90,12 @@ pip install datasets
 ```
 
 ```python
-from datasets import load_dataset
-dataset = load_dataset("linxy/RamseyGraph")
+>>>from datasets import load_dataset
+>>>dataset = load_dataset("/Users/lxy/Documents/GitHub/LinXueyuanStdio/RamseyGraph", "r44_3", trust_remote_code=True)
+>>>for i in dataset["train"]:
+>>>  print(i)
+{'edges': [], 'num_nodes': 3}
+{'edges': [[1, 2]], 'num_nodes': 3}
+{'edges': [[0, 2], [1, 2]], 'num_nodes': 3}
+{'edges': [[0, 1], [0, 2], [1, 2]], 'num_nodes': 3}
 ```
