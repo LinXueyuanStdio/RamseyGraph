@@ -5,6 +5,7 @@ import networkx as nx
 import streamlit as st
 from st_link_analysis import st_link_analysis, NodeStyle, EdgeStyle
 from st_link_analysis.component.layouts import LAYOUTS
+from datasets import load_dataset
 
 LAYOUT_NAMES = list(LAYOUTS.keys())
 
@@ -42,9 +43,77 @@ edge_styles = [
 # Render the component
 @st.cache_data
 def load_graphs(graphset_name: str):
-    graphs = nx.read_graph6(graphset_name)
+    graphs = nx.read_graph6(f"data/{graphset_name}")
     return graphs
+@st.cache_data
+def load_graphs_from_dataset(graphset_name: str):
+    dataset = load_dataset("linxy/RamseyGraph", graphset_name, trust_remote_code=True)
+    return list(dataset["train"])
 
+_FILENAMES = [
+    "r34_8",
+    "r35_12",
+    "r44_3",
+    "r37_22",
+    "r35_9",
+    "r44_7",
+    "r39_35",
+    "r45_24",
+    "r44_6",
+    "r44_11",
+    "r35_13",
+    "r44_2",
+    "r44_13",
+    "r35_8",
+    "r44_9",
+    "r34_2",
+    "r35_3",
+    "r36_4",
+    "r44_14",
+    "r34_6",
+    "r37_21",
+    "r35_7",
+    "r44_15",
+    "r34_7",
+    "r36_1",
+    "r35_6",
+    "r44_12",
+    "r36_17",
+    "r44_10",
+    "r44_8",
+    "r34_3",
+    "r35_2",
+    "r36_5",
+    "r44_16",
+    "r34_4",
+    "r36_16",
+    "r36_2",
+    "r35_5",
+    "r36_14",
+    "r35_1",
+    "r36_6",
+    "r36_10",
+    "r34_1",
+    "r36_7",
+    "r44_17",
+    "r36_12",
+    "r34_5",
+    "r38_27",
+    "r36_3",
+    "r35_4",
+    "r36_15",
+    "r44_5",
+    "r36_8",
+    "r55_42some",
+    "r35_10",
+    "r44_1",
+    "r35_11",
+    "r36_13",
+    "r46_35some",
+    "r44_4",
+    "r36_11",
+    "r36_9",
+]
 
 def convert_graph_to_json(G, show_blue):
     # 创建元素列表，存储节点和边的数据
@@ -99,20 +168,68 @@ def convert_graph_to_json(G, show_blue):
     return elements
 
 
+def convert_data_to_elements(G, show_blue):
+    elements = {"nodes": [], "edges": []}
+
+    for node in range(G['num_nodes']):
+        elements["nodes"].append(
+            {
+                "data": {
+                    "id": str(node),
+                    "label": "Node",
+                    "name": f"Node {node}",
+                }
+            }
+        )
+
+    edge_set = set()
+    for i, (source, target) in enumerate(G["edges"]):
+        elements["edges"].append(
+            {
+                "data": {
+                    "id": str(G['num_nodes'] + i),
+                    "label": "RED",
+                    "source": str(source),
+                    "target": str(target),
+                }
+            }
+        )
+        edge_set.add((str(source), str(target)))
+
+    if show_blue:
+        for i in range(G['num_nodes']):
+            for j in range(i+1, G['num_nodes']):
+                if (str(i), str(j)) in edge_set:
+                    continue
+                elements["edges"].append(
+                    {
+                        "data": {
+                            "id": str(G['num_nodes'] + len(G["edges"]) + i*(G['num_nodes']) + j),  # 确保edge的id与node的id不冲突
+                            "label": "BLUE",
+                            "source": str(i),
+                            "target": str(j),
+                        }
+                    }
+                )
+    return elements
+
 with st.sidebar:
-    st.title("## Ramsey Graph")
-    graphset_name = st.selectbox("R(s,t)_n.g6", os.listdir("data"), index=0)
-    graphs = load_graphs(f"data/{graphset_name}")
-    G = st.radio("G", graphs)
+    st.title("Ramsey Graph")
+    # graphset_name = st.selectbox("R(s,t)_n", os.listdir("data"), index=0)
+    # dataset = load_dataset("linxy/RamseyGraph", graphset_name, trust_remote_code=True)
+    # graphs = load_graphs(graphset_name)
+    graphset_name = st.selectbox("R(s,t)_n", _FILENAMES, index=0)
+    graphs = load_graphs_from_dataset(graphset_name)
+    G = st.radio("G", graphs, index=0, format_func=lambda x: f"Graph with {x['num_nodes']} nodes and {len(x['edges'])} edges")
 
     st.markdown("## Visualization Settings")
     layout = st.selectbox("Layout Name", LAYOUT_NAMES, index=4)
     show_blue = st.checkbox("Show Blue Edges", True)
 
     st.markdown("## Graph Data")
-    elements = convert_graph_to_json(G, show_blue)
+    elements = convert_data_to_elements(G, show_blue)
     st.json(elements)
-    print(json.dumps(elements, ensure_ascii=False, indent=2))
+    # print(json.dumps(elements, ensure_ascii=False, indent=2))
 
 st.markdown("# Ramsey Graph")
 s, t = graphset_name[1], graphset_name[2]
