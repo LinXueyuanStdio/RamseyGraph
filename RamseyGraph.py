@@ -150,7 +150,7 @@ class RamseyGraph(datasets.GeneratorBasedBuilder):
         data_dir = dl_manager.download_and_extract(url)
         return [
             datasets.SplitGenerator(
-                name=datasets.Split.ALL,
+                name=datasets.Split.TRAIN,
                 gen_kwargs={
                     "filepath": os.path.join(data_dir, filename),
                 },
