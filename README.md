@@ -99,3 +99,8 @@ pip install datasets
 {'edges': [[0, 2], [1, 2]], 'num_nodes': 3}
 {'edges': [[0, 1], [0, 2], [1, 2]], 'num_nodes': 3}
 ```
+
+
+## Thanks
+
+**Gunnar Brinkmann** 和 **Jan Goedgebeur** 的 [**ramsey**](https://users.cecs.anu.edu.au/~bdm/data/ramsey.html) 数据库
