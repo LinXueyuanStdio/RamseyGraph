@@ -9,6 +9,8 @@ size_categories:
 ---
 # Ramsey Graph
 
+[Live Demo](https://huggingface.co/spaces/linxy/RamseyGraph)
+
 本仓库托管了一些与经典 **拉姆齐数（Ramsey Number）** 相关的图。
 
 **Ramsey(s,t,n) 图** 是具有 $n$ 个顶点的图，它不包含大小为 $s$ 的团，也不包含大小为 $t$ 的独立集。通常将 `n` 省略，用 **Ramsey(s,t) 图** 代指某些 $n$ 的 Ramsey(s,t,n) 图。 **Ramsey 定理**表示，对于给定的 $s$ 和 $t$，Ramsey(s,t) 图的数量是有限的。我们称满足 Ramsey 图的最小顶点数为**拉姆齐数（Ramsey Number）**。然而，找到所有这样的图，甚至确定它们存在的最大 $n$，都是一个著名的组合数学难题。
