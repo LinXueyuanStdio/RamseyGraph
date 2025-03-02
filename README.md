@@ -11,7 +11,38 @@ size_categories:
 
 [Live Demo](https://huggingface.co/spaces/linxy/RamseyGraph)
 
-本仓库托管了一些与经典 **拉姆齐数（Ramsey Number）** 相关的图。
+本仓库托管了一些与经典 **拉姆齐数（Ramsey Number）** 相关的图。同时发布到 [Huggingface datasets (linxy/RamseyGraph)](https://huggingface.co/datasets/linxy/RamseyGraph)。你可以使用以下代码获取：
+
+```bash
+pip install datasets
+```
+
+```python
+>>> from datasets import load_dataset
+>>> dataset = load_dataset("linxy/RamseyGraph", "r44_3", trust_remote_code=True)
+>>> for i in dataset["train"]:
+>>>     print(i)
+{'edges': [], 'num_nodes': 3}
+{'edges': [[1, 2]], 'num_nodes': 3}
+{'edges': [[0, 2], [1, 2]], 'num_nodes': 3}
+{'edges': [[0, 1], [0, 2], [1, 2]], 'num_nodes': 3}
+```
+
+`r44_3` 指 Ramsey(4,4) 图中 3 个顶点的图。以下是所有数据集的名称：
+```python
+['r34_1', 'r34_2', 'r34_3', 'r34_4', 'r34_5', 'r34_6', 'r34_7', 'r34_8',
+ 'r35_1', 'r35_2', 'r35_3', 'r35_4', 'r35_5', 'r35_6', 'r35_7', 'r35_8', 'r35_9', 'r35_10', 'r35_11', 'r35_12', 'r35_13',
+ 'r36_1', 'r36_2', 'r36_3', 'r36_4', 'r36_5', 'r36_6', 'r36_7', 'r36_8', 'r36_9', 'r36_10', 'r36_11', 'r36_12', 'r36_13', 'r36_14', 'r36_15', 'r36_16', 'r36_17',
+ 'r37_21', 'r37_22',
+ 'r38_27',
+ 'r39_35',
+ 'r44_1', 'r44_2', 'r44_3', 'r44_4', 'r44_5', 'r44_6', 'r44_7', 'r44_8', 'r44_9', 'r44_10', 'r44_11', 'r44_12', 'r44_13', 'r44_14', 'r44_15', 'r44_16', 'r44_17',
+ 'r45_24',
+ 'r46_35some',
+ 'r55_42some']
+```
+
+# 介绍
 
 | 一个 6 结点的 Ramsey(4, 4) 图及其补图 |
 | --------------- |
@@ -86,38 +117,6 @@ size_categories:
 - Ramsey(4,4;3)-超图
   - **Ramsey(4,4;3) 超图** 是一个 3-均匀超图，不能包含 4-顶点的完全子图，也不能包含 4-顶点的完全独立集。**Steve Butler** 和 **Aaron Wootton** 在 2010 年发现了 42 个这样的超图，每个都有 13 个顶点。
 
-## Huggingface datasets
-
-本仓库的数据集已经发布到了 [Huggingface datasets (https://huggingface.co/datasets/linxy/RamseyGraph)](https://huggingface.co/datasets/linxy/RamseyGraph)。你可以使用以下代码安装：
-
-```bash
-pip install datasets
-```
-
-```python
->>> from datasets import load_dataset
->>> dataset = load_dataset("linxy/RamseyGraph", "r44_3", trust_remote_code=True)
->>> for i in dataset["train"]:
->>>     print(i)
-{'edges': [], 'num_nodes': 3}
-{'edges': [[1, 2]], 'num_nodes': 3}
-{'edges': [[0, 2], [1, 2]], 'num_nodes': 3}
-{'edges': [[0, 1], [0, 2], [1, 2]], 'num_nodes': 3}
-```
-
-`r44_3` 指 Ramsey(4,4) 图中 3 个顶点的图。以下是所有数据集的名称：
-```python
-['r34_1', 'r34_2', 'r34_3', 'r34_4', 'r34_5', 'r34_6', 'r34_7', 'r34_8',
- 'r35_1', 'r35_2', 'r35_3', 'r35_4', 'r35_5', 'r35_6', 'r35_7', 'r35_8', 'r35_9', 'r35_10', 'r35_11', 'r35_12', 'r35_13',
- 'r36_1', 'r36_2', 'r36_3', 'r36_4', 'r36_5', 'r36_6', 'r36_7', 'r36_8', 'r36_9', 'r36_10', 'r36_11', 'r36_12', 'r36_13', 'r36_14', 'r36_15', 'r36_16', 'r36_17',
- 'r37_21', 'r37_22',
- 'r38_27',
- 'r39_35',
- 'r44_1', 'r44_2', 'r44_3', 'r44_4', 'r44_5', 'r44_6', 'r44_7', 'r44_8', 'r44_9', 'r44_10', 'r44_11', 'r44_12', 'r44_13', 'r44_14', 'r44_15', 'r44_16', 'r44_17',
- 'r45_24',
- 'r46_35some',
- 'r55_42some']
-```
 
 ## Thanks
 
