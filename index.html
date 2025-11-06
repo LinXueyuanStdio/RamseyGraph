@@ -829,35 +829,6 @@
             border: 1px solid var(--accent-blue);
         }
 
-        /* Wiki link bottom right */
-        .wiki-link {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 14px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 12px;
-            transition: all 0.2s ease;
-            z-index: 100;
-        }
-
-        .wiki-link:hover {
-            border-color: var(--accent-blue);
-            color: var(--accent-blue);
-        }
-
-        .wiki-icon-svg {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-        }
-
         /* Links panel */
         .panel-links {
             margin-top: auto;
@@ -1066,6 +1037,16 @@
                             </span>
                             <span class="link-text" data-i18n="wiki">E-JC Survey</span>
                         </a>
+                        <a href="https://en.wikipedia.org/wiki/Ramsey%27s_theorem" target="_blank" id="wikiLink">
+                            <span class="link-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 16v-4"></path>
+                                    <path d="M12 8h.01"></path>
+                                </svg>
+                            </span>
+                            <span class="link-text" data-i18n="wikiLink">Wikipedia</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1142,15 +1123,6 @@
             </div>
         </div>
 
-        <!-- Wiki link bottom right -->
-        <a href="https://en.wikipedia.org/wiki/Ramsey%27s_theorem" target="_blank" class="wiki-link" title="Wikipedia: Ramsey's Theorem">
-            <svg class="wiki-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 16v-4"></path>
-                <path d="M12 8h.01"></path>
-            </svg>
-            <span class="wiki-text" data-i18n="wikiLink">Wikipedia</span>
-        </a>
     </div>
 
     <script>
@@ -1265,7 +1237,7 @@
                 el.placeholder = t(key);
             });
             // Update wiki link URL based on language
-            const wikiLink = document.querySelector('.wiki-link');
+            const wikiLink = document.getElementById('wikiLink');
             if (wikiLink) {
                 wikiLink.href = wikiUrls[currentLang] || wikiUrls.en;
             }
