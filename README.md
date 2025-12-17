@@ -7,9 +7,9 @@ language:
 size_categories:
   - 100M<n<1B
 ---
-# Ramsey Graph
-
 <div align="center">
+
+<h1>Ramsey Graph</h1>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Datasets-blue)](https://huggingface.co/datasets/linxy/RamseyGraph)
@@ -19,39 +19,6 @@ size_categories:
 [🌐 Live Demo](https://linxueyuan.online/RamseyGraph) | [中文文档](README_CN.md)
 
 </div>
-
-This repository hosts graphs related to the classical **Ramsey Numbers**. You can access them using the following code:
-
-```bash
-pip install datasets
-```
-
-```python
->>> from datasets import load_dataset
->>> dataset = load_dataset("linxy/RamseyGraph", "r44_3", trust_remote_code=True)
->>> for i in dataset["train"]:
->>>     print(i)
-{'edges': [], 'num_nodes': 3}
-{'edges': [[1, 2]], 'num_nodes': 3}
-{'edges': [[0, 2], [1, 2]], 'num_nodes': 3}
-{'edges': [[0, 1], [0, 2], [1, 2]], 'num_nodes': 3}
-```
-
-`r44_3` refers to Ramsey(4,4) graphs with 3 vertices. Here are all dataset names:
-```python
-['r34_1', 'r34_2', 'r34_3', 'r34_4', 'r34_5', 'r34_6', 'r34_7', 'r34_8',
- 'r35_1', 'r35_2', 'r35_3', 'r35_4', 'r35_5', 'r35_6', 'r35_7', 'r35_8', 'r35_9', 'r35_10', 'r35_11', 'r35_12', 'r35_13',
- 'r36_1', 'r36_2', 'r36_3', 'r36_4', 'r36_5', 'r36_6', 'r36_7', 'r36_8', 'r36_9', 'r36_10', 'r36_11', 'r36_12', 'r36_13', 'r36_14', 'r36_15', 'r36_16', 'r36_17',
- 'r37_21', 'r37_22',
- 'r38_27',
- 'r39_35',
- 'r44_1', 'r44_2', 'r44_3', 'r44_4', 'r44_5', 'r44_6', 'r44_7', 'r44_8', 'r44_9', 'r44_10', 'r44_11', 'r44_12', 'r44_13', 'r44_14', 'r44_15', 'r44_16', 'r44_17',
- 'r45_24',
- 'r46_35some',
- 'r55_42some']
-```
-
-# Introduction
 
 | A 6-vertex Ramsey(4, 4) graph and its complement |
 | --------------- |
@@ -84,9 +51,43 @@ If you are interested in this topic, you can try to find the **largest Ramsey(5,
 | 9   | -   | -   | -   | -   | -       | -         | -         | -          | 565 - 5366 | 581 - 9797  |
 | 10  | -   | -   | -   | -   | -       | -         | -         | -          | -          | 798 - 17730 |
 
+
+## How to Use
+
+This repository hosts graphs related to the classical **Ramsey Numbers**. You can access them using the following code:
+
+```bash
+pip install datasets
+```
+
+```python
+>>> from datasets import load_dataset
+>>> dataset = load_dataset("linxy/RamseyGraph", "r44_3", trust_remote_code=True)
+>>> for i in dataset["train"]:
+>>>     print(i)
+{'edges': [], 'num_nodes': 3}
+{'edges': [[1, 2]], 'num_nodes': 3}
+{'edges': [[0, 2], [1, 2]], 'num_nodes': 3}
+{'edges': [[0, 1], [0, 2], [1, 2]], 'num_nodes': 3}
+```
+
+`r44_3` refers to Ramsey(4,4) graphs with 3 vertices. Here are all dataset names:
+```python
+['r34_1', 'r34_2', 'r34_3', 'r34_4', 'r34_5', 'r34_6', 'r34_7', 'r34_8',
+ 'r35_1', 'r35_2', 'r35_3', 'r35_4', 'r35_5', 'r35_6', 'r35_7', 'r35_8', 'r35_9', 'r35_10', 'r35_11', 'r35_12', 'r35_13',
+ 'r36_1', 'r36_2', 'r36_3', 'r36_4', 'r36_5', 'r36_6', 'r36_7', 'r36_8', 'r36_9', 'r36_10', 'r36_11', 'r36_12', 'r36_13', 'r36_14', 'r36_15', 'r36_16', 'r36_17',
+ 'r37_21', 'r37_22',
+ 'r38_27',
+ 'r39_35',
+ 'r44_1', 'r44_2', 'r44_3', 'r44_4', 'r44_5', 'r44_6', 'r44_7', 'r44_8', 'r44_9', 'r44_10', 'r44_11', 'r44_12', 'r44_13', 'r44_14', 'r44_15', 'r44_16', 'r44_17',
+ 'r45_24',
+ 'r46_35some',
+ 'r55_42some']
+```
+
 ## Progress
 
-Many Ramsey graphs have been found, but many remain undiscovered. Here are some known Ramsey graphs:
+Many Ramsey graphs have been found, but many remain undiscovered. Here are some known Ramsey graphs (also available in `data/` directory):
 
 | Vertices | Ramsey(3,4)              | Ramsey(3,5)                | Ramsey(3,6)                                 | Ramsey(4,4) Graphs                           |
 | ------ | ------------------------ | -------------------------- | ------------------------------------------- | -------------------------------------------- |
