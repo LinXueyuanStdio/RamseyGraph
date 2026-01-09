@@ -166,6 +166,16 @@
             color: var(--accent-blue);
         }
 
+        .challenge-btn {
+            border-color: var(--accent-green);
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .challenge-btn:hover {
+            background: var(--accent-green) !important;
+            color: var(--bg-primary) !important;
+        }
+
         .main-content {
             display: flex;
             gap: 16px;
@@ -886,6 +896,325 @@
             white-space: nowrap;
         }
 
+        /* Challenge Mode Styles */
+        .challenge-mode {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-primary);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+        }
+
+        .challenge-mode.show {
+            display: flex;
+        }
+
+        .challenge-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+
+        .challenge-title {
+            font-family: var(--serif);
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .challenge-params {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .challenge-params select {
+            padding: 6px 10px;
+            font-size: 12px;
+            min-width: 60px;
+        }
+
+        .challenge-params label {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .challenge-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .challenge-actions .btn,
+        .challenge-params .btn {
+            width: auto;
+            white-space: nowrap;
+        }
+
+        .challenge-main {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .challenge-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border-color);
+            min-width: 0;
+        }
+
+        .challenge-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .challenge-panel-header {
+            padding: 10px 16px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .challenge-canvas {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .challenge-canvas svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .challenge-matrix-container {
+            flex: 1;
+            overflow: auto;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .challenge-matrix-cell {
+            width: var(--cell-size, 20px);
+            height: var(--cell-size, 20px);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            user-select: none;
+        }
+
+        .challenge-matrix-cell:hover:not(.diagonal) {
+            transform: scale(1.15);
+            z-index: 10;
+            box-shadow: 0 0 12px rgba(255, 51, 102, 0.6);
+        }
+
+        .challenge-matrix-cell.edge {
+            background: var(--accent-red);
+            color: var(--bg-primary);
+        }
+
+        .challenge-matrix-cell.no-edge {
+            background: var(--accent-blue);
+            color: var(--bg-primary);
+        }
+
+        .challenge-matrix-cell.diagonal {
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            cursor: default;
+        }
+
+        .challenge-matrix-cell.highlight-clique {
+            box-shadow: 0 0 0 2px var(--accent-red), 0 0 15px var(--accent-red);
+            z-index: 20;
+        }
+
+        .challenge-matrix-cell.highlight-indep {
+            box-shadow: 0 0 0 2px var(--accent-blue), 0 0 15px var(--accent-blue);
+            z-index: 20;
+        }
+
+        .challenge-status {
+            padding: 12px 20px;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .status-indicator.ok {
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+        }
+
+        .status-indicator.warning {
+            background: var(--accent-red);
+            box-shadow: 0 0 8px var(--accent-red);
+            animation: pulse-warning 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse-warning {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .found-structures {
+            display: flex;
+            gap: 16px;
+        }
+
+        .structure-badge {
+            padding: 4px 10px;
+            font-size: 11px;
+            border-radius: 2px;
+        }
+
+        .structure-badge.clique {
+            background: rgba(255, 51, 102, 0.2);
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        .structure-badge.indep {
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .challenge-node {
+            cursor: pointer;
+        }
+
+        .challenge-node:hover {
+            filter: brightness(1.3);
+        }
+
+        .challenge-node.highlight-clique {
+            fill: var(--accent-red) !important;
+            filter: url(#double-border);
+        }
+
+        .challenge-node.highlight-indep {
+            fill: var(--accent-blue) !important;
+            filter: url(#double-border);
+        }
+
+        /* Node in both clique and independent set - half red, half blue */
+        .challenge-node.highlight-both {
+            fill: url(#gradient-both) !important;
+            filter: url(#double-border);
+        }
+
+        .challenge-link.highlight-clique {
+            stroke: var(--accent-red) !important;
+            stroke-width: 4px !important;
+            stroke-opacity: 1 !important;
+        }
+
+        .challenge-link.highlight-indep {
+            stroke: var(--accent-blue) !important;
+            stroke-width: 4px !important;
+            stroke-opacity: 1 !important;
+            stroke-dasharray: 5,5;
+        }
+
+        /* Success celebration */
+        .success-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .success-overlay.show {
+            display: flex;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .success-content {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .success-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .success-title {
+            font-family: var(--serif);
+            font-size: 32px;
+            color: var(--accent-green);
+            margin-bottom: 12px;
+        }
+
+        .success-message {
+            font-size: 14px;
+            color: var(--text-secondary);
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        .import-select {
+            min-width: 120px;
+        }
+
         @media (max-width: 900px) {
             .main-content {
                 flex-direction: column;
@@ -903,6 +1232,29 @@
                 margin-top: 0;
             }
             .canvas-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .challenge-header {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .challenge-title {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .challenge-main {
+                flex-direction: column;
+            }
+            .challenge-left {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                min-height: 300px;
+            }
+            .challenge-right {
+                min-height: 300px;
+            }
+            .challenge-status {
                 flex-direction: column;
                 align-items: flex-start;
             }
@@ -931,6 +1283,17 @@
                         <path d="M6 20v-6"></path>
                     </svg>
                     <span data-i18n="progress">Progress</span>
+                </button>
+                <button class="action-btn challenge-btn" id="challengeBtn">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                        <path d="M4 22h16"></path>
+                        <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                        <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                        <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+                    </svg>
+                    <span data-i18n="challenge">Challenge</span>
                 </button>
                 <div class="lang-toggle">
                     <button class="lang-btn active" data-lang="en">
@@ -1079,6 +1442,7 @@
                             <button class="toggle-btn" data-mode="complement">G'</button>
                             <button class="toggle-btn" data-mode="both" data-i18n="both">Both</button>
                         </div>
+                        <button class="btn" id="openChallengeWithGraph" style="padding: 6px 12px; width: auto; display: none;" data-i18n="editInChallenge">Edit in Challenge</button>
                     </div>
                 </div>
                 <div id="canvas">
@@ -1119,6 +1483,75 @@
                     <button class="modal-close">&times;</button>
                 </div>
                 <div class="modal-body" id="progressBody">
+                </div>
+            </div>
+        </div>
+
+        <!-- Challenge Mode -->
+        <div class="challenge-mode" id="challengeMode">
+            <div class="challenge-header">
+                <div class="challenge-title">
+                    <span data-i18n="challengeTitle">Challenge Mode</span>
+                    <div class="challenge-params">
+                        <label>s=</label>
+                        <select id="challengeS"></select>
+                        <label>t=</label>
+                        <select id="challengeT"></select>
+                        <label>n=</label>
+                        <select id="challengeN"></select>
+                        <button class="btn" id="startChallengeBtn" style="padding: 6px 12px; width: auto;" data-i18n="startChallenge">Start</button>
+                    </div>
+                </div>
+                <div class="challenge-actions">
+                    <select id="importGraphSelect" class="import-select">
+                        <option value="" data-i18n="importFrom">Import from...</option>
+                    </select>
+                    <button class="btn" id="importGraphBtn" style="padding: 6px 12px; width: auto;" data-i18n="import">Import</button>
+                    <button class="btn" id="resetChallengeBtn" style="padding: 6px 12px; width: auto;" data-i18n="reset">Reset</button>
+                    <button class="btn" id="closeChallengeBtn" style="padding: 6px 12px; width: auto;" data-i18n="close">Close</button>
+                </div>
+            </div>
+            <div class="challenge-main">
+                <div class="challenge-left">
+                    <div class="challenge-panel-header">
+                        <span data-i18n="forceGraph">Force-Directed Graph</span>
+                        <div class="legend" style="font-size: 9px;">
+                            <div class="legend-item"><div class="legend-dot red"></div><span data-i18n="edge">Edge</span></div>
+                            <div class="legend-item"><div class="legend-dot blue"></div><span data-i18n="noEdge">No Edge</span></div>
+                        </div>
+                    </div>
+                    <div class="challenge-canvas" id="challengeCanvas"></div>
+                </div>
+                <div class="challenge-right">
+                    <div class="challenge-panel-header">
+                        <span data-i18n="adjacencyMatrix">Adjacency Matrix</span>
+                        <span style="font-size: 9px; color: var(--text-secondary);" data-i18n="clickToFlip">Click to flip edges</span>
+                    </div>
+                    <div class="challenge-matrix-container" id="challengeMatrixContainer"></div>
+                </div>
+            </div>
+            <div class="challenge-status">
+                <div class="status-item">
+                    <span class="status-indicator" id="cliqueIndicator"></span>
+                    <span id="cliqueStatus" data-i18n="noClique">No K_s clique found</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-indicator" id="indepIndicator"></span>
+                    <span id="indepStatus" data-i18n="noIndep">No K_t independent set found</span>
+                </div>
+                <div class="found-structures" id="foundStructures"></div>
+                <div class="status-item">
+                    <span id="edgeCountStatus"></span>
+                </div>
+            </div>
+            <div class="success-overlay" id="successOverlay">
+                <div class="success-content">
+                    <div class="success-icon">🏆</div>
+                    <div class="success-title" data-i18n="congratulations">Congratulations!</div>
+                    <div class="success-message" id="successMessage" data-i18n="successMsg">
+                        You found a valid Ramsey graph! This could improve the lower bound!
+                    </div>
+                    <button class="btn" id="closeSuccessBtn" style="margin-top: 20px; width: auto; padding: 10px 30px;" data-i18n="continue">Continue Exploring</button>
                 </div>
             </div>
         </div>
@@ -1167,7 +1600,31 @@
                 progressTitle: 'Known Ramsey Numbers',
                 exactValue: 'Exact value known',
                 rangeValue: 'Only bounds known',
-                wikiLink: 'Wikipedia'
+                wikiLink: 'Wikipedia',
+                editInChallenge: 'Edit in Challenge',
+                challenge: 'Challenge',
+                challengeTitle: 'Challenge Mode',
+                startChallenge: 'Start',
+                importFrom: 'Import from...',
+                import: 'Import',
+                reset: 'Reset',
+                close: 'Close',
+                forceGraph: 'Force-Directed Graph',
+                adjacencyMatrix: 'Adjacency Matrix',
+                clickToFlip: 'Click to flip edges',
+                edge: 'Edge',
+                noEdge: 'No Edge',
+                noClique: 'No K_{0} clique found',
+                noIndep: 'No K_{0} independent set found',
+                foundClique: 'Found K_{0} clique: {1}',
+                foundIndep: 'Found K_{0} independent set: {1}',
+                congratulations: 'Congratulations!',
+                successMsg: 'You found a valid Ramsey({0},{1},{2}) graph! This could improve the lower bound of R({0},{1}) from {3} to {4}!',
+                continue: 'Continue Exploring',
+                edgeCountLabel: 'Edges: {0}',
+                challengeHint: 'Try to construct a graph with no K_{0} clique and no K_{1} independent set',
+                beyondProgress: 'Beyond current progress!',
+                importGraphN: 'Import from n={0}'
             },
             zh: {
                 subtitle: '交互式可视化工具',
@@ -1208,7 +1665,31 @@
                 progressTitle: '已知拉姆齐数',
                 exactValue: '精确值已知',
                 rangeValue: '仅知道上下界',
-                wikiLink: '维基百科'
+                wikiLink: '维基百科',
+                editInChallenge: '在挑战中编辑',
+                challenge: '挑战',
+                challengeTitle: '挑战模式',
+                startChallenge: '开始',
+                importFrom: '导入自...',
+                import: '导入',
+                reset: '重置',
+                close: '关闭',
+                forceGraph: '力导向图',
+                adjacencyMatrix: '邻接矩阵',
+                clickToFlip: '点击翻转边',
+                edge: '有边',
+                noEdge: '无边',
+                noClique: '未发现 K_{0} 团',
+                noIndep: '未发现 K_{0} 独立集',
+                foundClique: '发现 K_{0} 团: {1}',
+                foundIndep: '发现 K_{0} 独立集: {1}',
+                congratulations: '恭喜！',
+                successMsg: '你找到了一个有效的 Ramsey({0},{1},{2}) 图！这可以将 R({0},{1}) 的下界从 {3} 提升到 {4}！',
+                continue: '继续探索',
+                edgeCountLabel: '边数: {0}',
+                challengeHint: '尝试构造一个既没有 K_{0} 团也没有 K_{1} 独立集的图',
+                beyondProgress: '超越当前进展！',
+                importGraphN: '从 n={0} 导入'
             }
         };
 
@@ -1347,9 +1828,9 @@
         }
 
         function getDatasetUrl() {
-            const s = selectS.value, t = selectT.value, n = selectN.value;
-            let fileKey = `r${s}${t}_${n}`;
-            if (['4,6', '5,5'].includes(`${s},${t}`)) {
+            const sVal = selectS.value, tVal = selectT.value, nVal = selectN.value;
+            let fileKey = `r${sVal}${tVal}_${nVal}`;
+            if (['4,6', '5,5'].includes(`${sVal},${tVal}`)) {
                 fileKey += 'some';
             }
             const ext = COMPRESSED.has(fileKey.replace('some','')) ? '.g6.gz' : '.g6';
@@ -1867,6 +2348,899 @@
                 document.querySelectorAll('.modal.show').forEach(m => closeModal(m));
             }
         });
+
+        // =====================
+        // Challenge Mode Logic
+        // =====================
+
+        // Known Ramsey number lower bounds (for determining "breakthrough")
+        const RAMSEY_BOUNDS = {
+            '3,3': { lower: 6, upper: 6 },
+            '3,4': { lower: 9, upper: 9 },
+            '3,5': { lower: 14, upper: 14 },
+            '3,6': { lower: 18, upper: 18 },
+            '3,7': { lower: 23, upper: 23 },
+            '3,8': { lower: 28, upper: 28 },
+            '3,9': { lower: 36, upper: 36 },
+            '3,10': { lower: 40, upper: 41 },
+            '4,4': { lower: 18, upper: 18 },
+            '4,5': { lower: 25, upper: 25 },
+            '4,6': { lower: 36, upper: 40 },
+            '4,7': { lower: 49, upper: 58 },
+            '4,8': { lower: 59, upper: 79 },
+            '4,9': { lower: 73, upper: 106 },
+            '4,10': { lower: 92, upper: 136 },
+            '5,5': { lower: 43, upper: 48 },
+            '5,6': { lower: 59, upper: 85 },
+            '5,7': { lower: 80, upper: 133 },
+            '5,8': { lower: 101, upper: 194 },
+            '5,9': { lower: 133, upper: 282 },
+            '5,10': { lower: 149, upper: 381 },
+            '6,6': { lower: 102, upper: 161 },
+            '6,7': { lower: 115, upper: 273 },
+            '6,8': { lower: 134, upper: 427 },
+            '6,9': { lower: 183, upper: 656 },
+            '6,10': { lower: 204, upper: 949 }
+        };
+
+        // Challenge state
+        let challengeState = {
+            s: 5,
+            t: 5,
+            n: 43,
+            adjMatrix: null,
+            simulation: null,
+            foundCliques: [],
+            foundIndeps: []
+        };
+
+        // Challenge DOM elements
+        const challengeMode = document.getElementById('challengeMode');
+        const challengeS = document.getElementById('challengeS');
+        const challengeT = document.getElementById('challengeT');
+        const challengeN = document.getElementById('challengeN');
+        const challengeCanvas = document.getElementById('challengeCanvas');
+        const challengeMatrixContainer = document.getElementById('challengeMatrixContainer');
+        const importGraphSelect = document.getElementById('importGraphSelect');
+        const successOverlay = document.getElementById('successOverlay');
+
+        // Initialize challenge selectors
+        function initChallengeSelectors() {
+            // s values 3-6
+            for (let s = 3; s <= 6; s++) {
+                challengeS.innerHTML += `<option value="${s}">${s}</option>`;
+            }
+            challengeS.value = 5;
+            updateChallengeTOptions();
+        }
+
+        function updateChallengeTOptions() {
+            const sVal = parseInt(challengeS.value);
+            challengeT.innerHTML = '';
+            for (let tOpt = sVal; tOpt <= 10; tOpt++) {
+                challengeT.innerHTML += `<option value="${tOpt}">${tOpt}</option>`;
+            }
+            challengeT.value = Math.max(sVal, 5);
+            updateChallengeNOptions();
+        }
+
+        function updateChallengeNOptions() {
+            const sVal = parseInt(challengeS.value);
+            const tVal = parseInt(challengeT.value);
+            const key = `${Math.min(sVal,tVal)},${Math.max(sVal,tVal)}`;
+            const bounds = RAMSEY_BOUNDS[key] || { lower: 10, upper: 100 };
+
+            challengeN.innerHTML = '';
+            // Allow n from lower bound - 5 to lower bound + 5
+            const minN = Math.max(3, bounds.lower - 5);
+            const maxN = bounds.lower + 5;
+            for (let nOpt = minN; nOpt <= maxN; nOpt++) {
+                const option = document.createElement('option');
+                option.value = nOpt;
+                option.textContent = nOpt;
+                if (nOpt >= bounds.lower) {
+                    option.textContent += ' ★';
+                }
+                challengeN.appendChild(option);
+            }
+            challengeN.value = bounds.lower;
+            updateImportOptions();
+        }
+
+        function updateImportOptions() {
+            const sVal = parseInt(challengeS.value);
+            const tVal = parseInt(challengeT.value);
+            const nVal = parseInt(challengeN.value);
+
+            importGraphSelect.innerHTML = `<option value="">${t('importFrom')}</option>`;
+
+            // Find available datasets for smaller n
+            const key = `${sVal},${tVal}`;
+            const available = DATASETS[key] || [];
+            available.filter(availN => availN < nVal).forEach(availN => {
+                const option = document.createElement('option');
+                option.value = availN;
+                option.textContent = t('importGraphN', availN);
+                importGraphSelect.appendChild(option);
+            });
+        }
+
+        challengeS.addEventListener('change', updateChallengeTOptions);
+        challengeT.addEventListener('change', updateChallengeNOptions);
+        challengeN.addEventListener('change', updateImportOptions);
+
+        // Open challenge mode
+        function openChallengeMode(s = 5, t = 5, n = 43) {
+            challengeS.value = s;
+            updateChallengeTOptions();
+            challengeT.value = t;
+            updateChallengeNOptions();
+            challengeN.value = n;
+            updateImportOptions();
+
+            challengeMode.classList.add('show');
+            startChallenge();
+        }
+
+        // Close challenge mode
+        function closeChallengeMode() {
+            challengeMode.classList.remove('show');
+            if (challengeState.simulation) {
+                challengeState.simulation.stop();
+            }
+        }
+
+        // Start a new challenge
+        function startChallenge() {
+            const sVal = parseInt(challengeS.value);
+            const tVal = parseInt(challengeT.value);
+            const nVal = parseInt(challengeN.value);
+
+            challengeState.s = sVal;
+            challengeState.t = tVal;
+            challengeState.n = nVal;
+
+            // Initialize empty adjacency matrix
+            challengeState.adjMatrix = Array.from({ length: nVal }, () => Array(nVal).fill(0));
+
+            // Random initialization: ~50% density
+            for (let i = 0; i < nVal; i++) {
+                for (let j = i + 1; j < nVal; j++) {
+                    const hasEdge = Math.random() < 0.5 ? 1 : 0;
+                    challengeState.adjMatrix[i][j] = hasEdge;
+                    challengeState.adjMatrix[j][i] = hasEdge;
+                }
+            }
+
+            renderChallengeViews();
+            checkStructures();
+        }
+
+        // Reset to empty graph
+        function resetChallenge() {
+            const n = challengeState.n;
+            challengeState.adjMatrix = Array.from({ length: n }, () => Array(n).fill(0));
+            renderChallengeViews();
+            checkStructures();
+            successOverlay.classList.remove('show');
+        }
+
+        // Import from existing graph
+        async function importFromDataset() {
+            const importN = parseInt(importGraphSelect.value);
+            if (!importN) return;
+
+            const sVal = challengeState.s;
+            const tVal = challengeState.t;
+            const nVal = challengeState.n;
+
+            // Build URL for the dataset
+            let fileKey = `r${sVal}${tVal}_${importN}`;
+            if (['4,6', '5,5'].includes(`${sVal},${tVal}`)) {
+                fileKey += 'some';
+            }
+            const ext = COMPRESSED.has(fileKey.replace('some','')) ? '.g6.gz' : '.g6';
+            const url = `https://huggingface.co/datasets/linxy/RamseyGraph/resolve/main/data/${fileKey}${ext}?download=true`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                let text;
+                if (url.includes('.gz')) {
+                    const buffer = await response.arrayBuffer();
+                    const decompressed = await decompress(buffer);
+                    text = new TextDecoder().decode(decompressed);
+                } else {
+                    text = await response.text();
+                }
+
+                const lines = text.split('\n');
+                const firstGraph = parseGraph6(lines[0]);
+
+                if (firstGraph) {
+                    // Reset matrix
+                    challengeState.adjMatrix = Array.from({ length: nVal }, () => Array(nVal).fill(0));
+
+                    // Copy edges from imported graph
+                    for (const [i, j] of firstGraph.edges) {
+                        if (i < nVal && j < nVal) {
+                            challengeState.adjMatrix[i][j] = 1;
+                            challengeState.adjMatrix[j][i] = 1;
+                        }
+                    }
+
+                    renderChallengeViews();
+                    checkStructures();
+                }
+            } catch (err) {
+                console.error('Import failed:', err);
+            }
+        }
+
+        // Flip edge at (i, j)
+        function flipEdge(i, j) {
+            if (i === j) return;
+
+            const current = challengeState.adjMatrix[i][j];
+            challengeState.adjMatrix[i][j] = 1 - current;
+            challengeState.adjMatrix[j][i] = 1 - current;
+
+            renderChallengeViews();
+            checkStructures();
+        }
+
+        // Render both views
+        function renderChallengeViews() {
+            renderChallengeMatrix();
+            renderChallengeGraph();
+        }
+
+        // Render the interactive matrix
+        function renderChallengeMatrix() {
+            const n = challengeState.n;
+            const matrix = challengeState.adjMatrix;
+
+            // Calculate cell size
+            const containerRect = challengeMatrixContainer.getBoundingClientRect();
+            const availableSize = Math.min(containerRect.width - 60, containerRect.height - 40);
+            const cellSize = Math.max(14, Math.min(24, Math.floor(availableSize / (n + 1))));
+
+            challengeMatrixContainer.innerHTML = '';
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'matrix-wrapper';
+            wrapper.style.setProperty('--cell-size', `${cellSize}px`);
+
+            // Top labels
+            const topLabels = document.createElement('div');
+            topLabels.className = 'matrix-labels-top';
+            for (let j = 0; j < n; j++) {
+                const label = document.createElement('div');
+                label.className = 'matrix-label';
+                label.textContent = j;
+                label.style.width = `${cellSize}px`;
+                topLabels.appendChild(label);
+            }
+            wrapper.appendChild(topLabels);
+
+            // Matrix rows
+            for (let i = 0; i < n; i++) {
+                const row = document.createElement('div');
+                row.className = 'matrix-row';
+
+                // Row label
+                const rowLabel = document.createElement('div');
+                rowLabel.className = 'matrix-row-label';
+                rowLabel.textContent = i;
+                rowLabel.style.height = `${cellSize}px`;
+                row.appendChild(rowLabel);
+
+                // Cells
+                for (let j = 0; j < n; j++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'challenge-matrix-cell';
+                    cell.dataset.i = i;
+                    cell.dataset.j = j;
+
+                    if (i === j) {
+                        cell.classList.add('diagonal');
+                        cell.textContent = '-';
+                    } else {
+                        const hasEdge = matrix[i][j] === 1;
+                        cell.classList.add(hasEdge ? 'edge' : 'no-edge');
+                        cell.textContent = hasEdge ? '1' : '0';
+
+                        cell.addEventListener('click', () => flipEdge(i, j));
+                    }
+
+                    row.appendChild(cell);
+                }
+
+                wrapper.appendChild(row);
+            }
+
+            challengeMatrixContainer.appendChild(wrapper);
+        }
+
+        // Render the force-directed graph
+        function renderChallengeGraph() {
+            const n = challengeState.n;
+            const matrix = challengeState.adjMatrix;
+
+            challengeCanvas.innerHTML = '';
+
+            const rect = challengeCanvas.getBoundingClientRect();
+            const width = rect.width;
+            const height = rect.height;
+
+            if (width === 0 || height === 0) return;
+
+            const svg = d3.select('#challengeCanvas').append('svg')
+                .attr('width', width)
+                .attr('height', height);
+
+            // Add gradient definition for nodes in both clique and indep set
+            const defs = svg.append('defs');
+            const gradient = defs.append('linearGradient')
+                .attr('id', 'gradient-both')
+                .attr('x1', '0%')
+                .attr('y1', '0%')
+                .attr('x2', '100%')
+                .attr('y2', '100%');
+            gradient.append('stop')
+                .attr('offset', '50%')
+                .attr('stop-color', '#ff3366'); // red
+            gradient.append('stop')
+                .attr('offset', '50%')
+                .attr('stop-color', '#00d4ff'); // blue
+
+            // Add filter for double border effect (white inner + black outer)
+            const filter = defs.append('filter')
+                .attr('id', 'double-border')
+                .attr('x', '-50%')
+                .attr('y', '-50%')
+                .attr('width', '200%')
+                .attr('height', '200%');
+            filter.append('feMorphology')
+                .attr('in', 'SourceAlpha')
+                .attr('operator', 'dilate')
+                .attr('radius', '3')
+                .attr('result', 'expanded');
+            filter.append('feFlood')
+                .attr('flood-color', '#000000')
+                .attr('result', 'black');
+            filter.append('feComposite')
+                .attr('in', 'black')
+                .attr('in2', 'expanded')
+                .attr('operator', 'in')
+                .attr('result', 'blackBorder');
+            filter.append('feMorphology')
+                .attr('in', 'SourceAlpha')
+                .attr('operator', 'dilate')
+                .attr('radius', '1.5')
+                .attr('result', 'expanded2');
+            filter.append('feFlood')
+                .attr('flood-color', '#ffffff')
+                .attr('result', 'white');
+            filter.append('feComposite')
+                .attr('in', 'white')
+                .attr('in2', 'expanded2')
+                .attr('operator', 'in')
+                .attr('result', 'whiteBorder');
+            filter.append('feMerge')
+                .selectAll('feMergeNode')
+                .data(['blackBorder', 'whiteBorder', 'SourceGraphic'])
+                .join('feMergeNode')
+                .attr('in', d => d);
+
+            // Build nodes and links
+            const nodes = Array.from({ length: n }, (_, i) => ({ id: i }));
+            const edgeLinks = [];
+            const noEdgeLinks = [];
+
+            for (let i = 0; i < n; i++) {
+                for (let j = i + 1; j < n; j++) {
+                    if (matrix[i][j] === 1) {
+                        edgeLinks.push({ source: i, target: j, type: 'edge' });
+                    } else {
+                        noEdgeLinks.push({ source: i, target: j, type: 'noedge' });
+                    }
+                }
+            }
+
+            // Only show edge links in force simulation, but render both
+            const allLinks = [...edgeLinks, ...noEdgeLinks];
+
+            if (challengeState.simulation) {
+                challengeState.simulation.stop();
+            }
+
+            // Adjust force parameters based on node count for better spread
+            const linkDistance = Math.max(100, Math.min(200, 800 / Math.sqrt(n)));
+            const chargeStrength = Math.max(-400, Math.min(-200, -8000 / n));
+            const collisionRadius = Math.max(15, Math.min(25, 400 / n));
+
+            challengeState.simulation = d3.forceSimulation(nodes)
+                .force('link', d3.forceLink(edgeLinks).id(d => d.id).distance(linkDistance).strength(0.2))
+                .force('charge', d3.forceManyBody().strength(chargeStrength))
+                .force('center', d3.forceCenter(width / 2, height / 2))
+                .force('collision', d3.forceCollide().radius(collisionRadius))
+                .force('x', d3.forceX(width / 2).strength(0.02))
+                .force('y', d3.forceY(height / 2).strength(0.02));
+
+            // Draw no-edge links first (dashed, lighter)
+            const noEdgeLine = svg.append('g')
+                .selectAll('line.noedge')
+                .data(noEdgeLinks)
+                .join('line')
+                .attr('class', 'challenge-link noedge')
+                .attr('stroke', '#00d4ff')
+                .attr('stroke-width', 1)
+                .attr('stroke-opacity', 0.2)
+                .attr('stroke-dasharray', '2,2');
+
+            // Draw edge links
+            const edgeLine = svg.append('g')
+                .selectAll('line.edge')
+                .data(edgeLinks)
+                .join('line')
+                .attr('class', 'challenge-link edge')
+                .attr('stroke', '#ff3366')
+                .attr('stroke-width', 2)
+                .attr('stroke-opacity', 0.7);
+
+            // Draw nodes
+            const node = svg.append('g')
+                .selectAll('circle')
+                .data(nodes)
+                .join('circle')
+                .attr('class', 'challenge-node')
+                .attr('r', 8)
+                .attr('fill', '#e8e8e8')
+                .call(drag(challengeState.simulation));
+
+            // Draw labels
+            const label = svg.append('g')
+                .selectAll('text')
+                .data(nodes)
+                .join('text')
+                .attr('class', 'node-label')
+                .text(d => d.id);
+
+            challengeState.simulation.on('tick', () => {
+                edgeLine
+                    .attr('x1', d => d.source.x)
+                    .attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x)
+                    .attr('y2', d => d.target.y);
+
+                noEdgeLine
+                    .attr('x1', d => d.source.x)
+                    .attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x)
+                    .attr('y2', d => d.target.y);
+
+                node
+                    .attr('cx', d => d.x)
+                    .attr('cy', d => d.y);
+
+                label
+                    .attr('x', d => d.x)
+                    .attr('y', d => d.y + 20);
+            });
+
+            // Store references for highlighting and clustering
+            challengeState.svgElements = { node, edgeLine, noEdgeLine };
+            challengeState.canvasSize = { width, height };
+            challengeState.nodes = nodes;
+        }
+
+        // Update force simulation to cluster nodes by group (clique, indep, other)
+        function updateClusteringForces(cliqueSet, indepSet) {
+            if (!challengeState.simulation || !challengeState.canvasSize) return;
+
+            const { width, height } = challengeState.canvasSize;
+            const nodes = challengeState.nodes;
+
+            // Define cluster centers: clique (left), indep (right), other (center-bottom)
+            const cliqueCenterX = width * 0.25;
+            const cliqueCenterY = height * 0.4;
+            const indepCenterX = width * 0.75;
+            const indepCenterY = height * 0.4;
+            const otherCenterX = width * 0.5;
+            const otherCenterY = height * 0.7;
+
+            // Assign group to each node
+            nodes.forEach(node => {
+                const inClique = cliqueSet.has(node.id);
+                const inIndep = indepSet.has(node.id);
+                if (inClique && inIndep) {
+                    node.group = 'both';
+                    node.targetX = width * 0.5;
+                    node.targetY = height * 0.2;
+                } else if (inClique) {
+                    node.group = 'clique';
+                    node.targetX = cliqueCenterX;
+                    node.targetY = cliqueCenterY;
+                } else if (inIndep) {
+                    node.group = 'indep';
+                    node.targetX = indepCenterX;
+                    node.targetY = indepCenterY;
+                } else {
+                    node.group = 'other';
+                    node.targetX = otherCenterX;
+                    node.targetY = otherCenterY;
+                }
+            });
+
+            // Update forces to pull nodes toward their group centers
+            challengeState.simulation
+                .force('groupX', d3.forceX(d => d.targetX).strength(0.15))
+                .force('groupY', d3.forceY(d => d.targetY).strength(0.15))
+                .alpha(0.5)
+                .restart();
+        }
+
+        // Find all cliques of size k using brute force
+        function findCliques(matrix, n, k) {
+            const cliques = [];
+
+            function isClique(vertices) {
+                for (let i = 0; i < vertices.length; i++) {
+                    for (let j = i + 1; j < vertices.length; j++) {
+                        if (matrix[vertices[i]][vertices[j]] !== 1) return false;
+                    }
+                }
+                return true;
+            }
+
+            function search(start, current) {
+                if (current.length === k) {
+                    if (isClique(current)) {
+                        cliques.push([...current]);
+                    }
+                    return;
+                }
+
+                for (let v = start; v < n; v++) {
+                    current.push(v);
+                    search(v + 1, current);
+                    current.pop();
+
+                    // Limit search for performance
+                    if (cliques.length >= 10) return;
+                }
+            }
+
+            search(0, []);
+            return cliques;
+        }
+
+        // Find all independent sets of size k
+        function findIndependentSets(matrix, n, k) {
+            const indeps = [];
+
+            function isIndependent(vertices) {
+                for (let i = 0; i < vertices.length; i++) {
+                    for (let j = i + 1; j < vertices.length; j++) {
+                        if (matrix[vertices[i]][vertices[j]] !== 0) return false;
+                    }
+                }
+                return true;
+            }
+
+            function search(start, current) {
+                if (current.length === k) {
+                    if (isIndependent(current)) {
+                        indeps.push([...current]);
+                    }
+                    return;
+                }
+
+                for (let v = start; v < n; v++) {
+                    current.push(v);
+                    search(v + 1, current);
+                    current.pop();
+
+                    // Limit search for performance
+                    if (indeps.length >= 10) return;
+                }
+            }
+
+            search(0, []);
+            return indeps;
+        }
+
+        // Check for cliques and independent sets
+        function checkStructures() {
+            const { s, t: tParam, n, adjMatrix } = challengeState;
+
+            const cliques = findCliques(adjMatrix, n, s);
+            const indeps = findIndependentSets(adjMatrix, n, tParam);
+
+            challengeState.foundCliques = cliques;
+            challengeState.foundIndeps = indeps;
+
+            // Update status indicators
+            const cliqueIndicator = document.getElementById('cliqueIndicator');
+            const indepIndicator = document.getElementById('indepIndicator');
+            const cliqueStatus = document.getElementById('cliqueStatus');
+            const indepStatus = document.getElementById('indepStatus');
+            const foundStructures = document.getElementById('foundStructures');
+            const edgeCountStatus = document.getElementById('edgeCountStatus');
+
+            // Count edges
+            let edgeCount = 0;
+            for (let i = 0; i < n; i++) {
+                for (let j = i + 1; j < n; j++) {
+                    if (adjMatrix[i][j] === 1) edgeCount++;
+                }
+            }
+            edgeCountStatus.textContent = t('edgeCountLabel', edgeCount);
+
+            // Clique status
+            if (cliques.length > 0) {
+                cliqueIndicator.className = 'status-indicator warning';
+                cliqueStatus.textContent = t('foundClique', s, cliques[0].join(','));
+            } else {
+                cliqueIndicator.className = 'status-indicator ok';
+                cliqueStatus.textContent = t('noClique', s);
+            }
+
+            // Independent set status
+            if (indeps.length > 0) {
+                indepIndicator.className = 'status-indicator warning';
+                indepStatus.textContent = t('foundIndep', tParam, indeps[0].join(','));
+            } else {
+                indepIndicator.className = 'status-indicator ok';
+                indepStatus.textContent = t('noIndep', tParam);
+            }
+
+            // Show found structures badges
+            foundStructures.innerHTML = '';
+            if (cliques.length > 0) {
+                const badge = document.createElement('span');
+                badge.className = 'structure-badge clique';
+                badge.textContent = `K${s}: ${cliques.length} found`;
+                foundStructures.appendChild(badge);
+            }
+            if (indeps.length > 0) {
+                const badge = document.createElement('span');
+                badge.className = 'structure-badge indep';
+                badge.textContent = `I${tParam}: ${indeps.length} found`;
+                foundStructures.appendChild(badge);
+            }
+
+            // Highlight in views
+            highlightStructures(cliques, indeps);
+
+            // Check for success (valid Ramsey graph)
+            if (cliques.length === 0 && indeps.length === 0) {
+                const key = `${Math.min(s,tParam)},${Math.max(s,tParam)}`;
+                const bounds = RAMSEY_BOUNDS[key];
+
+                if (bounds && n >= bounds.lower) {
+                    // This is a breakthrough!
+                    showSuccess(s, tParam, n, bounds.lower, n + 1);
+                }
+            }
+        }
+
+        // Highlight found structures in both views
+        function highlightStructures(cliques, indeps) {
+            // Clear previous highlights
+            document.querySelectorAll('.challenge-matrix-cell.highlight-clique').forEach(el => {
+                el.classList.remove('highlight-clique');
+            });
+            document.querySelectorAll('.challenge-matrix-cell.highlight-indep').forEach(el => {
+                el.classList.remove('highlight-indep');
+            });
+            document.querySelectorAll('.challenge-matrix-cell.highlight-both').forEach(el => {
+                el.classList.remove('highlight-both');
+            });
+
+            if (challengeState.svgElements) {
+                challengeState.svgElements.node
+                    .classed('highlight-clique', false)
+                    .classed('highlight-indep', false)
+                    .classed('highlight-both', false);
+                challengeState.svgElements.edgeLine.classed('highlight-clique', false);
+                challengeState.svgElements.noEdgeLine.classed('highlight-indep', false);
+            }
+
+            // Get sets for intersection detection
+            const cliqueSet = cliques.length > 0 ? new Set(cliques[0]) : new Set();
+            const indepSet = indeps.length > 0 ? new Set(indeps[0]) : new Set();
+            const bothSet = new Set([...cliqueSet].filter(x => indepSet.has(x)));
+
+            // Highlight first clique
+            if (cliques.length > 0) {
+                const clique = cliques[0];
+
+                // Highlight matrix cells
+                clique.forEach(i => {
+                    clique.forEach(j => {
+                        if (i !== j) {
+                            const cell = document.querySelector(`.challenge-matrix-cell[data-i="${i}"][data-j="${j}"]`);
+                            if (cell) cell.classList.add('highlight-clique');
+                        }
+                    });
+                });
+
+                // Highlight graph edges
+                if (challengeState.svgElements) {
+                    challengeState.svgElements.edgeLine.classed('highlight-clique', d =>
+                        cliqueSet.has(d.source.id) && cliqueSet.has(d.target.id)
+                    );
+                }
+            }
+
+            // Highlight first independent set
+            if (indeps.length > 0) {
+                const indep = indeps[0];
+
+                // Highlight matrix cells
+                indep.forEach(i => {
+                    indep.forEach(j => {
+                        if (i !== j) {
+                            const cell = document.querySelector(`.challenge-matrix-cell[data-i="${i}"][data-j="${j}"]`);
+                            if (cell) {
+                                // If already has clique highlight, add both
+                                if (cell.classList.contains('highlight-clique')) {
+                                    cell.classList.add('highlight-both');
+                                } else {
+                                    cell.classList.add('highlight-indep');
+                                }
+                            }
+                        }
+                    });
+                });
+
+                // Highlight graph non-edges
+                if (challengeState.svgElements) {
+                    challengeState.svgElements.noEdgeLine.classed('highlight-indep', d =>
+                        indepSet.has(d.source.id) && indepSet.has(d.target.id)
+                    );
+                }
+            }
+
+            // Highlight graph nodes with proper classes (clique only, indep only, or both)
+            if (challengeState.svgElements) {
+                challengeState.svgElements.node
+                    .classed('highlight-both', d => bothSet.has(d.id))
+                    .classed('highlight-clique', d => cliqueSet.has(d.id) && !bothSet.has(d.id))
+                    .classed('highlight-indep', d => indepSet.has(d.id) && !bothSet.has(d.id));
+            }
+
+            // Update clustering forces to group nodes visually
+            updateClusteringForces(cliqueSet, indepSet);
+        }
+
+        // Show success celebration
+        function showSuccess(sVal, tVal, nVal, oldLower, newLower) {
+            const message = document.getElementById('successMessage');
+            message.textContent = t('successMsg', sVal, tVal, nVal, oldLower, newLower);
+            successOverlay.classList.add('show');
+        }
+
+        // Event listeners for challenge mode
+        document.getElementById('challengeBtn').addEventListener('click', () => openChallengeMode());
+        document.getElementById('closeChallengeBtn').addEventListener('click', closeChallengeMode);
+        document.getElementById('startChallengeBtn').addEventListener('click', startChallenge);
+        document.getElementById('resetChallengeBtn').addEventListener('click', resetChallenge);
+        document.getElementById('importGraphBtn').addEventListener('click', importFromDataset);
+        document.getElementById('closeSuccessBtn').addEventListener('click', () => {
+            successOverlay.classList.remove('show');
+        });
+
+        // Allow clicking on Progress table to start challenge
+        function setupProgressTableClick() {
+            document.querySelectorAll('.ramsey-table td.range').forEach(cell => {
+                cell.style.cursor = 'pointer';
+                cell.addEventListener('click', (e) => {
+                    const row = e.target.closest('tr');
+                    const rowIndex = Array.from(row.parentNode.children).indexOf(row);
+                    const cellIndex = Array.from(row.children).indexOf(e.target);
+
+                    if (rowIndex >= 1 && cellIndex >= 1) {
+                        const sRow = rowIndex + 1;
+                        const tCol = cellIndex;
+                        const bounds = RAMSEY_BOUNDS[`${Math.min(sRow,tCol)},${Math.max(sRow,tCol)}`];
+                        if (bounds) {
+                            closeModal(document.getElementById('progressModal'));
+                            openChallengeMode(Math.min(sRow, tCol), Math.max(sRow, tCol), bounds.lower);
+                        }
+                    }
+                });
+            });
+        }
+
+        // Override the progress modal open to add click handlers
+        const originalOpenModal = openModal;
+        openModal = function(modalId) {
+            originalOpenModal(modalId);
+            if (modalId === 'progressModal') {
+                setTimeout(setupProgressTableClick, 100);
+            }
+        };
+
+        // Keyboard shortcut to close challenge mode
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && challengeMode.classList.contains('show')) {
+                closeChallengeMode();
+            }
+        });
+
+        // Initialize challenge selectors
+        initChallengeSelectors();
+
+        // Open challenge mode with current graph
+        const openChallengeWithGraphBtn = document.getElementById('openChallengeWithGraph');
+
+        function openChallengeWithCurrentGraph() {
+            if (graphs.length === 0) return;
+
+            const g = graphs[currentIndex];
+            const nNodes = g.nodes;
+
+            // Get s, t from current dataset selection
+            const sVal = parseInt(selectS.value) || 5;
+            const tVal = parseInt(selectT.value) || 5;
+
+            // Set challenge parameters
+            challengeS.value = Math.min(sVal, 6);
+            updateChallengeTOptions();
+            challengeT.value = Math.min(tVal, 10);
+            updateChallengeNOptions();
+
+            // Set n or add 1 for challenge
+            const targetN = nNodes + 1;
+            if (![...challengeN.options].some(opt => opt.value == targetN)) {
+                const option = document.createElement('option');
+                option.value = targetN;
+                option.textContent = targetN + ' ★';
+                challengeN.appendChild(option);
+            }
+            challengeN.value = targetN;
+
+            challengeState.s = parseInt(challengeS.value);
+            challengeState.t = parseInt(challengeT.value);
+            challengeState.n = targetN;
+
+            // Initialize matrix with current graph edges
+            challengeState.adjMatrix = Array.from({ length: targetN }, () => Array(targetN).fill(0));
+
+            for (const [i, j] of g.edges) {
+                if (i < targetN && j < targetN) {
+                    challengeState.adjMatrix[i][j] = 1;
+                    challengeState.adjMatrix[j][i] = 1;
+                }
+            }
+
+            challengeMode.classList.add('show');
+            updateImportOptions();
+
+            // Need to wait for layout to render
+            setTimeout(() => {
+                renderChallengeViews();
+                checkStructures();
+            }, 100);
+        }
+
+        openChallengeWithGraphBtn.addEventListener('click', openChallengeWithCurrentGraph);
+
+        // Show/hide the "Edit in Challenge" button based on loaded graphs
+        function updateChallengeButton() {
+            openChallengeWithGraphBtn.style.display = graphs.length > 0 ? 'block' : 'none';
+        }
+
+        // Patch parseAndDisplay to update the challenge button
+        const originalParseAndDisplay = parseAndDisplay;
+        parseAndDisplay = function(text) {
+            originalParseAndDisplay(text);
+            updateChallengeButton();
+        };
 
         // Init
         initSelectors();
